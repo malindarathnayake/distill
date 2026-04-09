@@ -1,0 +1,65 @@
+{
+  "name": "oracle-standard-docs",
+  "version": "1.0.0",
+  "description": "Oracle standard documentation pages (SQL Reference, product docs, guides)",
+  "url_pattern": "https://docs.oracle.com/en/{path}.html",
+  "base_url": "https://docs.oracle.com/en/",
+
+  "root": "article",
+
+  "section": {
+    "strategy": "css",
+    "selector": "div.ind",
+    "fallback": "article"
+  },
+
+  "cleanup": {
+    "remove_selectors": [
+      "script", "style", "nav", "header", "footer",
+      "a.indexterm-anchor",
+      "a[id^='d'][class='indexterm-anchor']"
+    ]
+  },
+
+  "fields": {
+    "title": {
+      "selector": "h2.sect2, h2",
+      "extract": "text",
+      "required": true
+    },
+    "sections": {
+      "extract": "nested_sections",
+      "required": false,
+      "section_selectors": ["div.section", "div.sect2", "div.sect3"],
+      "heading_selectors": ["p.subhead1", "p.subhead2", "p.subhead3", "h3.sect3", "h4.sect4"],
+      "content_extract": "prose",
+      "code_selector": "pre.pre.codeblock code, pre code",
+      "table_selector": "table.Formal, table",
+      "note_selector": "div.infoboxnotealso, div.infoboxnote",
+      "link_selector": "a[href]",
+      "max_depth": 3
+    },
+    "child_links": {
+      "selector": "ul.ullinks > li.ulchildlink > a",
+      "extract": "link_list",
+      "required": false
+    }
+  },
+
+  "metadata": {
+    "url": { "source": "input_url" },
+    "guid": {
+      "source": "first_match_attr",
+      "selector": "a[id^='GUID-']",
+      "attr": "id"
+    }
+  },
+
+  "prose_rules": {
+    "paragraph_selector": "p:not(.subhead1):not(.subhead2):not(.subhead3):not(.notep1)",
+    "list_selector": "ul > li, ol > li",
+    "list_prefix": "- ",
+    "join": "\n",
+    "trim": true
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "name": "distill",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "bin": {
+    "distill": "./bin/distill.mjs"
+  },
+  "files": ["dist", "bin", "descriptors/oracle-error-docs.json", "descriptors/oracle-standard-docs.json"],
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "create-descriptor": "node scripts/create-descriptor.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@toon-format/toon": "^2.1.0",
+    "cheerio": "^1.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "gpt-3-encoder": "^1.1.4",
+    "typescript": "^5.7.0",
+    "vitest": "^3.1.0"
+  }
+}

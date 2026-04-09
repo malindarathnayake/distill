@@ -1,0 +1,18 @@
+{
+  "oracle": {
+    "pass": 8,
+    "total": 8,
+    "totalRaw": 92281,
+    "totalToon": 3122,
+    "totalJson": 3811
+  },
+  "ms": {
+    "pass": 3,
+    "total": 3,
+    "errorCount": 244,
+    "rawTokens": 40795,
+    "toonTokens": 7327,
+    "jsonTokens": 20288
+  },
+  "timestamp": "2026-04-09T05:22:39.930Z"
+}

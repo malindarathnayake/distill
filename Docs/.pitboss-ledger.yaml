@@ -1,0 +1,127 @@
+version: 1
+
+units:
+  - id: "1.1"
+    files: [tsconfig.json, vitest.config.ts, package.json]
+    exports: []
+    status: ACCEPTED
+    workers:
+      - {id: w1, phase: 1, verdict: ACCEPT}
+    notes: "TS18003 expected for empty src/. All config matches spec exactly."
+
+  - id: "1.2"
+    files: [src/types.ts, src/errors.ts, src/__tests__/errors.test.ts]
+    exports:
+      - "interface OracleError { code, message, parameters, cause, action, additionalInfo?, sql?, release?, url }"
+      - "interface Parameter { name, description }"
+      - "interface ErrorIndex { code, url }"
+      - "interface CacheProvider { get, set, has, clear, keys, isFresh }"
+      - "interface WebtollmConfig { cache?, cacheTtl?, baseUrl?, timeout?, descriptors?, debug? }"
+      - "interface FetchOptions { format?, release?, noCache? }"
+      - "interface WarmOptions { codes?, concurrency?, onProgress? }"
+      - "interface Descriptor { name, version, description, url_pattern, base_url?, index?, root, section?, cleanup?, fields, metadata?, prose_rules? }"
+      - "interface DescriptorField { ...all fields including attr?, offset? }"
+      - "type FormatType = 'toon' | 'markdown' | 'json'"
+      - "type ExtractResult = Record<string, unknown>"
+      - "class WebtollmError extends Error { code: string }"
+      - "class InvalidCodeError, ErrorNotFoundError, FetchTimeoutError, NetworkError, ExtractionError, IndexFetchError"
+    status: ACCEPTED
+    workers:
+      - {id: w2, phase: 1, verdict: ACCEPT}
+    notes: "36/36 tests pass. Types match both bundled descriptor JSON files."
+
+  - id: "2.1"
+    files: [src/normalize.ts, src/__tests__/normalize.test.ts]
+    exports:
+      - "function normalizeOraCode(input: string): string"
+    status: ACCEPTED
+    workers:
+      - {id: w3, phase: 2, verdict: ACCEPT}
+    notes: "13/13 tests pass. Table-driven valid + error cases."
+
+  - id: "2.2"
+    files: [src/descriptor-loader.ts, src/__tests__/descriptor-loader.test.ts]
+    exports:
+      - "function loadDescriptors(userDescriptors?: Array<string | Descriptor>): Descriptor[]"
+      - "function matchDescriptor(url: string, descriptors: Descriptor[]): Descriptor | null"
+    status: ACCEPTED
+    workers:
+      - {id: w4, phase: 2, verdict: ACCEPT}
+    notes: "6/6 tests pass. (.+) captures for multi-segment paths."
+
+  - id: "2.3"
+    files: [src/extractor.ts, src/__tests__/extractor.test.ts, test/fixtures/ora-00001.html, test/fixtures/ora-12154.html]
+    exports:
+      - "function extract(html: string, descriptor: Descriptor, inputUrl: string): Record<string, unknown>"
+    status: ACCEPTED
+    workers:
+      - {id: w5, phase: 2, verdict: REJECT, reason: "cheerio.Element type error + missing attr/offset in DescriptorField"}
+      - {id: w6, phase: 2, verdict: ACCEPT, reason: "Fixed: AnyNode from domhandler + added attr/offset to types"}
+    notes: "29/29 tests pass. All 7 extract types ported. nextAll().first() for heading_section robustness."
+
+gates:
+  - phase: 1
+    g1_contract: PASS
+    g2_assertion: PASS
+    g3_spec_fidelity: PASS
+    g4_test_impact: PASS
+    g5_worker_hygiene: PASS
+  - phase: 2
+    g1_contract: PASS
+    g2_assertion: PASS
+    g3_spec_fidelity: PASS
+    g4_test_impact: PASS
+    g5_worker_hygiene: PASS
+
+decisions:
+  - unit: "1.1"
+    what: "TS18003 on empty src/ accepted as expected behavior"
+    why: "tsc returns non-zero when no inputs found"
+  - unit: "1.2"
+    what: "CacheProvider includes isFresh() method beyond spec's listed 5 methods"
+    why: "Spec line 493 explicitly adds isFresh to CacheProvider"
+  - unit: "2.2"
+    what: "URL pattern captures use (.+) not ([^/]+)"
+    why: "oracle-standard-docs {path} must match multi-segment paths"
+  - unit: "2.3"
+    what: "Types modified to add attr? and offset? to DescriptorField"
+    why: "Fields used by attr extract type and repeating_group offset — missed in original spec line 355"
+
+codex_reviews:
+  - phase: 1
+    status: INCOMPLETE
+    findings: []
+    deferred_concerns:
+      - "Codex gpt-5.4 hit read-only sandbox EPERM. No findings produced."
+  - phase: 2
+    status: COMPLETED
+    findings:
+      - id: 1
+        severity: HIGH
+        summary: "oracle-standard-docs title field searches section instead of root — will fail on real pages"
+        verdict: CONFIRMED
+        reason: "Reference mock-validate-stdocs.mjs:58 has title→root special case. Our extractor always uses section. Real issue but spec Phase 2 only tests oracle-error-docs."
+      - id: 2
+        severity: MEDIUM
+        summary: "nested_sections missing table extraction despite table_selector in descriptor"
+        verdict: CONFIRMED
+        reason: "Reference mock-validate-stdocs.mjs:191-197 extracts tables. Our extractSectionContent doesn't. Real gap but oracle-error-docs doesn't use tables."
+      - id: 3
+        severity: MEDIUM
+        summary: "ms-system-error-codes.json url_capture metadata not handled"
+        verdict: REJECTED
+        reason: "ms-system-error-codes.json is explicitly out of scope for v1 per spec decision table."
+      - id: 4
+        severity: LOW
+        summary: "Test coverage misses nested_sections, link_list, repeating_group, oracle-standard-docs"
+        verdict: REJECTED
+        reason: "Spec unit 2.3 test cases only require oracle-error-docs fixtures. Coverage of other types comes with future fixtures."
+    deferred_concerns:
+      - "oracle-standard-docs title root-vs-section search — fix before Phase 5 integration"
+      - "nested_sections table extraction — add when standard-docs fixtures are created"
+
+rejections:
+  - unit: "2.3"
+    worker: w5
+    reason: "cheerio.Element not exported in cheerio v1.2.0; DescriptorField missing attr/offset properties. tsc --noEmit failed with 11 errors."
+    resolution: "w6 fixed: imported AnyNode from domhandler, added attr?/offset? to DescriptorField in types.ts"

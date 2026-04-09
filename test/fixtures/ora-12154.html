@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en" class="ohc">
+
+<head>
+    <title>Database - ORA-12154 - Cannot connect to database. Cannot find alias alias_value in repository_loc.</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+
+    <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+    <meta name="dcterms.category" content="error-help">
+    <meta name="dcterms.product" content="en/error-help;en/database/oracle/oracle-database/26;en/database/oracle/oracle-database/21;en/database/oracle/oracle-database/19">
+    <meta name="dcterms.created" content="2026-03-31T18:43:37.585Z">
+    <meta name="dcterms.title" content="Database Error Messages"> 
+    
+    
+    <meta name="dcterms.dateCopyrighted" content="1993, 2026">
+    <meta name="description" content="This page describes the ora-12154 Oracle Database Error Messages, also known as ora12154">
+
+    <script>
+        var goodPath = window.location.pathname.endsWith("/") || window.location.pathname.endsWith(".html") || window.location.pathname.endsWith(".htm");
+        if(!goodPath) {
+          window.location.pathname = window.location.pathname + "/";
+        }
+    </script>
+
+    <link rel="shortcut icon" href="/sp_common/book-template/ohc-common/img/favicon.ico">
+    <link rel="stylesheet" href="/en/css/main.css">
+    <link rel="stylesheet" href="../css/hljs.css">
+    <script src="../hljs/highlight.pack.js"></script>
+    <script defer src="https://www.oracleimg.com/us/assets/metrics/ora_docs.js"></script>
+    <script data-main="/en/js/main-universal" src="/en/js/require.js"></script>
+    <script>
+        if (window.require === undefined) {
+            document.write('<link rel="stylesheet" href="https://docs.oracle.com/en/css/main.css">');
+            document.write('<script data-main="/en/js/main-universal" src="https://docs.oracle.com/en/js/require.js"><\/script>');
+        }
+    </script>
+    <link rel="stylesheet" href="../css/style.css">
+    <script type="application/json" id="ssot-metadata">{"primary":{"category":{"short_name":"error-help","element_name":"Error Help","display_in_url":true}}}</script>
+
+    <meta name="dcterms.identifier" content="F54690-12">
+    <meta name="dcterms.isVersionOf" content="DBERR">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Database - ORA-12154 - Cannot connect to database. Cannot find alias alias_value in repository_loc.","description":"This page describes the ora-12154 Oracle Database Error Messages, also known as ora12154","datePublished":"2026-04-02 CST","dateModified":"2026-04-02 CST"}</script>
+    <script>window.ohcglobal || document.write('<script src="/en/dcommon/js/global.js">\x3C/script>')</script></head>
+
+<body>
+    <!-- U02v0 -->
+    <header>
+        <nav role="none" class="u02nav ocom-base ocom-responsive">
+            <div class="u02" id="u02">
+                <div id="u02skip2content" tabindex="-1">
+                    <ul>
+                        <li><a id="u30skip2c" href="#maincontent">Skip to Content</a></li>
+                        <li><a id="u02skip2s" href="#skip_to_search_form">Skip to Search</a></li>
+                        <li><a aria-label="Help center home" href="/">Home</a></li>
+                    </ul>
+                </div>
+                <div class="u02w1">
+                    <div class="u02logos" data-trackas="header">
+                        <div class="u02logow1">
+                            <a aria-label="Oracle.com home" href="https://www.oracle.com" data-trackas="header" data-lbl="logo" class="o_icon"></a>
+                        </div>
+                    </div>
+                    <div class="u02menu" data-trackas="menu">
+                        <div id="u02main" class="u02mlink">
+                            <div class="u02mlinkw1">
+                                <a href="/en/menu.html" id="u02menulink" data-lbl="menu">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="u02local" data-trackas="header">
+                        <div class="u02localw1" style="width: unset !important;">
+                            <a aria-label="Help center home page" href="/" data-trackas="header" data-lbl="local">
+                                <span>Help Center</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div id="u02search" class="u02search" data-trackas="header" style="display: none;">
+                        <form class="u02searchform" name="searchForm" method="get" action="/apps/search/search.jsp?">
+                            <input aria-hidden="true" type="hidden" name="category" value="all">
+                            <input aria-label="search input text area" type="text" id="txtSearch" class="textcnt autoclear" name="q" placeholder="Search" autocomplete="off" aria-owns="awesomplete_list_1">
+                            <input aria-label="submit search" class="u02searchbttn" type="submit" aria-hidden="true">
+                        </form>
+                    </div>
+                    <!-- UTILITY BAR -->
+                    <!--Search Bar-->
+                    <div id="search-bar-container">
+                        <div id="search-icon">
+                            <span id="search-icon-black" class="preview-hide" role="presentation"></span>
+                            <span id="search-icon-white" role="presentation"></span>
+                        </div>
+                        <div id="search-bar-scope" style="display: none;">
+                        </div>
+                        <form class="u02searchform" name="searchForm" method="GET" action="/search/?">
+                            <input id="search-bar-input" name="q" placeholder="Search" autocomplete="off" role="searchbox">
+                        </form>
+                    </div>
+                    <!--Search results preview-->
+                    <div id="preview-container" class="preview-hide">
+                        <!-- No results preview -->
+                        <div id="no-results-preview" class="preview-hide">
+                            <div class="no-results-row">
+                                <span class="no-results-preview-icon" role="presentation"></span>
+                                <div class="no-results-preview-title">
+                                    No matching results
+                                </div>
+                            </div>
+                            <div class="no-results-preview-text">
+                                Try a different search query.
+                            </div>
+                        </div>
+                        <!-- Error in results preview -->
+                        <div id="error-results-preview" class="preview-hide">
+                            <div class="no-results-row">
+                                <span class="no-results-preview-icon" role="presentation"></span>
+                                <div class="no-results-preview-title">
+                                    Search Unavailable
+                                </div>
+                            </div>
+                            <div class="no-results-preview-text">
+                                We are making updates to our Search system right now. Please try again later.
+                            </div>
+                        </div>
+                        <!-- List search results preview -->
+                        <div id="results-preview" class="preview-hide">
+                        </div>
+                    </div>
+                    <label id="preview-results-alert" role="alert" aria-live="polite"></label>
+
+                    <div class="u02tools" data-trackas="header">
+                        <ul>
+                            <li class="u02mtool u02toolsloggedout">
+                                <a href="#usermenu" class="u02ticon u02user">
+                                    <span aria-label="Sign in options" class="u02signin">Sign In</span>
+                                    <span aria-label="Account information and options" class="u02signout">Account</span>
+                                </a>
+                                <div class="u02user u02toolpop">
+                                    <div class="u02userin">
+                                        <div class="u02userinw1 u02userloggedin">
+                                            <div class="u02userinfo">
+                                                <div class="u02userdata">
+                                                    <a class="u02ulink" href="https://profile.oracle.com/myprofile/account/secure/update-account.jspx?nexturl=">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="u02usertools">
+                                                <div class="u02menucontent">
+                                                    <h5 aria-label="Oracle account options">Oracle Account</h5>
+                                                    <div class="u02menu-l1">
+                                                        <ul>
+                                                            <li><a aria-label="Account configurations" id="u02pfile-acct" href="https://profile.oracle.com/myprofile/account/secure/update-account.jspx?nexturl=" data-lbl="account">Account</a></li>
+                                                            <li><a aria-label="Help with your oracle account" href="https://www.oracle.com/corporate/contact/help.html" data-lbl="help">Help</a></li>
+                                                            <li><a aria-label="Sign out option" href="javascript:sso_sign_out();" id="u02pfile-sout" data-lbl="signout">Sign Out</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="u02userinw1 u02userloggedout">
+                                            <div class="u02usertools">
+                                                <h5>Oracle Account</h5>
+                                                <p>Manage your account and access personalized content.
+                                                    <a class="u02acclink" href="https://profile.oracle.com/myprofile/account/create-account.jspx">Sign
+                                                        up for an Oracle Account</a>
+                                                </p>
+                                                <div class="u02bttn">
+                                                    <a aria-label="Sign in to my account" href="https://www.oracle.com/webapps/redirect/signon?nexturl=" id="u02pfile-regs" data-lbl="signin" role="button">Sign in to my
+                                                        Account</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="u02userinw2">
+                                            <div class="u02usertools">
+                                                <h5>Sign in to Cloud</h5>
+                                                <p>Access your cloud dashboard, manage orders, and more.
+                                                    <a aria-label="Free cloud platform trial" class="u02acclink" href="https://cloud.oracle.com/en_US/tryit">Free Cloud Platform
+                                                        Trial</a>
+                                                </p>
+                                                <div class="u02bttn">
+                                                    <a href="https://cloud.oracle.com/sign-in" data-lbl="signin" role="button">Sign in to Cloud</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- /U02v0 -->
+
+    <script async="async" src="//consent.truste.com/notice?domain=oracle.com&c=teconsent&js=bb&cdn=1&pcookie&noticeType=bb&text=true" crossorigin></script>
+
+
+    <div class="wrap">
+        <div class="wrap-bg"></div>
+        <section class="rc23 rc23v3 rw-neutral-10bg" data-a11y="true">
+            <div class="rc23w2">
+                <div class="rc23w3 rw-theme-150bg bgimgw1"></div>
+            </div>
+            <div class="pub-info">
+                
+                <div role="navigation" class="breadcrumbs" aria-label="Breadcrumb">
+                    <ol>
+                        
+                            <li>Error Messages</li>
+                        
+                            <li><a href="../index.html">Oracle Database</a></li>
+                        
+                            <li><a href="../ora-index.html">ORA</a></li>
+                        
+                    </ol>
+                </div>
+                <h1>Database Error Messages</h1>
+                <div class="pub-metas" aria-hidden="true">
+                    <div class="pub-meta">
+                        <label id="release" for="rcbox">Release</label>
+                        <img aria-hidden="true" src="../images/arrow.svg">
+                        <div id="rcbox" role="combobox" aria-labelledby="release" aria-expanded="false" aria-controls="rList" aria-haspopup="listbox" tabindex="0"></div>
+                    </div>
+                    <ul id="rList" role="listbox" aria-labelledby="release" aria-hidden="true">
+                        
+                        <li id="r26ai" role="option" tabindex="-1" aria-selected="true">
+                            26ai
+                        </li>
+                        
+                        <li id="r21c" role="option" tabindex="-1" aria-selected="false">
+                            21c
+                        </li>
+                        
+                        <li id="r19c" role="option" tabindex="-1" aria-selected="false">
+                            19c
+                        </li>
+                        
+                    </ul>
+                
+                    <div class="pub-meta">
+                        <div class="tax">Updated</div>
+                        <div>Mar 31, 2026</div>
+                    </div>
+                </div>
+            </div>
+            <div class="rc23w1 rw-neutral-00bg">
+                <a id="maincontent" tabindex="-1"></a>
+<main class="err">
+    
+    <div id="26ai" style="display: block;" aria-hidden="false;">
+        <h2>ORA-12154</h2>
+        <div class="st">Cannot connect to database. Cannot find alias <var>alias_value</var> in <var>repository_loc</var>.</div>
+        <div class="ca v"><ul><li><var>alias_value</var>: The alias or connect identifier that is used.</li><li><var>repository_loc</var>: The naming method repository or the repository that cannot be located or reached.</li></ul></div>
+        <hr>
+        <h3>Cause</h3>
+        <div class="ca"><p>A connection to a database or other service is being requested using a connection alias but the alias specified cannot be resolved into a connect descriptor using one of the configured naming methods.</p></div>
+        <hr>
+        <h3>Action</h3>
+        <div class="ca"><p>Do the following:</p><ul><li>Check for mistakes in the connection string that you used.</li><li>If you have a sqlnet.ora file containing a NAMES.DIRECTORY_PATH parameter, then ensure that the parameter contains valid values.</li><li>If you are using an alias from a tnsnames.ora file:</li><li>Verify that the tnsnames.ora file exists, is in the proper directory, and is accessible.</li><li>Ensure that the alias exists in one of the tnsnames.ora files.</li><li>Ensure that there are no syntax errors anywhere in the tnsnames.ora file or files. Look for unmatched parentheses or stray characters. Ensure that magic quotes are not used.</li><li>If you are using LDAP directory naming:</li><li>Verify that the net service name or database name used as the connect identifier is configured in the directory.</li><li>Verify that the LDAP directory server is up and that it is accessible.</li><li>Verify that the default context being used is correct by specifying a fully qualified net service name or a full LDAP DN as the connect identifier.</li><li>If the error is for a dblink connection, check all of the above for Database Server process making connection to remote database.</li></ul></div>
+        <hr>
+        
+    </div>
+    
+    <div id="21c" style="display: none;" aria-hidden="true;">
+        <h2>ORA-12154</h2>
+        <div class="st">TNS:could not resolve the connect identifier specified</div>
+        
+        <hr>
+        <h3>Cause</h3>
+        <div class="ca"><p>A connection to a database or other service was requested using a connect identifier, and the connect identifier specified could not be resolved into a connect descriptor using one of the naming methods configured. For example, if the type of connect identifier used was a net service name then the net service name could not be found in a naming method repository, or the repository could not be located or reached.</p></div>
+        <hr>
+        <h3>Action</h3>
+        <div class="ca"><ul><li>If you are using local naming (TNSNAMES.ORA file):</li><li>Make sure that "TNSNAMES" is listed as one of the values of the NAMES.DIRECTORY_PATH parameter in the Oracle Net profile (SQLNET.ORA)</li><li>Verify that a TNSNAMES.ORA file exists and is in the proper directory and is accessible.</li><li>Check that the net service name used as the connect identifier exists in the TNSNAMES.ORA file.</li><li>Make sure there are no syntax errors anywhere in the TNSNAMES.ORA file.  Look for unmatched parentheses or stray characters. Errors in a TNSNAMES.ORA file may make it unusable.</li><li>If you are using directory naming:</li><li>Verify that "LDAP" is listed as one of the values of the NAMES.DIRETORY_PATH parameter in the Oracle Net profile (SQLNET.ORA).</li><li>Verify that the LDAP directory server is up and that it is accessible.</li><li>Verify that the net service name or database name used as the connect identifier is configured in the directory.</li><li>Verify that the default context being used is correct by specifying a fully qualified net service name or a full LDAP DN as the connect identifier</li><li>If you are using easy connect naming:</li><li>Verify that "EZCONNECT" is listed as one of the values of the NAMES.DIRETORY_PATH parameter in the Oracle Net profile (SQLNET.ORA).</li><li>Make sure the host, port and service name specified are correct.</li><li>Try enclosing the connect identifier in quote marks.</li></ul><p>See the Oracle Net Services Administrators Guide or the Oracle operating system specific guide for more information on naming.</p></div>
+        <hr>
+        
+    </div>
+    
+    <div id="19c" style="display: none;" aria-hidden="true;">
+        <h2>ORA-12154</h2>
+        <div class="st">TNS:could not resolve the connect identifier specified</div>
+        
+        <hr>
+        <h3>Cause</h3>
+        <div class="ca"><p>A connection to a database or other service was requested using a connect identifier, and the connect identifier specified could not be resolved into a connect descriptor using one of the naming methods configured. For example, if the type of connect identifier used was a net service name then the net service name could not be found in a naming method repository, or the repository could not be located or reached.</p></div>
+        <hr>
+        <h3>Action</h3>
+        <div class="ca"><ul><li>If you are using local naming (TNSNAMES.ORA file):</li><li>Make sure that "TNSNAMES" is listed as one of the values of the NAMES.DIRECTORY_PATH parameter in the Oracle Net profile (SQLNET.ORA)</li><li>Verify that a TNSNAMES.ORA file exists and is in the proper directory and is accessible.</li><li>Check that the net service name used as the connect identifier exists in the TNSNAMES.ORA file.</li><li>Make sure there are no syntax errors anywhere in the TNSNAMES.ORA file.  Look for unmatched parentheses or stray characters. Errors in a TNSNAMES.ORA file may make it unusable.</li><li>If you are using directory naming:</li><li>Verify that "LDAP" is listed as one of the values of the NAMES.DIRETORY_PATH parameter in the Oracle Net profile (SQLNET.ORA).</li><li>Verify that the LDAP directory server is up and that it is accessible.</li><li>Verify that the net service name or database name used as the connect identifier is configured in the directory.</li><li>Verify that the default context being used is correct by specifying a fully qualified net service name or a full LDAP DN as the connect identifier</li><li>If you are using easy connect naming:</li><li>Verify that "EZCONNECT" is listed as one of the values of the NAMES.DIRETORY_PATH parameter in the Oracle Net profile (SQLNET.ORA).</li><li>Make sure the host, port and service name specified are correct.</li><li>Try enclosing the connect identifier in quote marks.</li></ul><p>See the Oracle Net Services Administrators Guide or the Oracle operating system specific guide for more information on naming.</p></div>
+        <hr>
+        
+    </div>
+    
+</main>
+
+            </div>
+        </section>
+
+    </div>
+
+
+    <footer>
+        <div id="u10" class="u10" style="position: relative;" data-trackas="footer">
+            <div class="feedback-target"></div>
+            <div class="u10v0">
+                <div class="u10w1">
+                    <div class="u10w5">
+                        <ul class="u10-links u10-min">
+                            <li><a aria-label="Navigate to © Oracle legal notices" href="/pls/topic/lookup?ctx=en/legal&id=cpyr" data-lbl="copyright">&#169; Oracle</a>
+                            </li>
+                            <li><a aria-label="Open a new window to learn more about oracle" target="_blank" href="https://www.oracle.com/corporate/index.html" data-lbl="about-oracle">About
+                                    Oracle</a></li>
+                            <li><a aria-label="Open a new window to contact us oracle" target="_blank" href="https://www.oracle.com/corporate/contact/" data-lbl="contact-us">Contact
+                                    Us</a></li>
+                            <li><a aria-label="Navigate to products a-z" href="/en/browseall.html" data-lbl="products-a-z">Products A-Z</a></li>
+                            <li><a aria-label="Open a new window to read more about oracle terms of use &amp; privacy" target="_blank" href="https://www.oracle.com/legal/privacy/" data-lbl="terms-of-use-and-privacy">Terms of Use &amp; Privacy</a></li>
+                            <li>
+                                <div aria-label="Open a new modal to " id="teconsent"></div>
+                            </li>
+                            <li class="u10last"><a aria-label="Open a new window to ad choices" target="_blank" href="https://www.oracle.com/legal/privacy/marketing-cloud-data-cloud-privacy-policy.html#12" data-lbl="ad-choices">Ad Choices</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        (() => {
+            var src = document.querySelector('.err') ? '../' : '';
+            document.write('<script src="' + src + "js/main.js" + '"><\/script>');
+        })();
+    </script>
+</body>
+
+</html>

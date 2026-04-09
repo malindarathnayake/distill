@@ -1,0 +1,7 @@
+node_modules/
+dist/
+artifacts/
+*.tgz
+.validation-cache/
+.DS_Store
+oracle-guide-db.toon

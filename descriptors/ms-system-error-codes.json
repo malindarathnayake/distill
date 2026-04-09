@@ -1,0 +1,78 @@
+{
+  "name": "ms-system-error-codes",
+  "version": "1.0.0",
+  "description": "Microsoft Windows System Error Codes (Win32 debug)",
+  "url_pattern": "https://learn.microsoft.com/en-us/windows/win32/debug/system-error-codes--{range}-",
+  "base_url": "https://learn.microsoft.com/en-us/windows/win32/debug/",
+
+  "index": {
+    "url": "https://learn.microsoft.com/en-us/windows/win32/debug/system-error-codes",
+    "item_selector": "a[href*='system-error-codes--']",
+    "item_extract": {
+      "range": { "source": "text" },
+      "url": { "source": "attr", "attr": "href" }
+    }
+  },
+
+  "root": "main#main",
+
+  "section": {
+    "strategy": "css",
+    "selector": "div[data-main-column]",
+    "fallback": "main"
+  },
+
+  "cleanup": {
+    "remove_selectors": [
+      "script", "style", "nav", "header", "footer",
+      ".content-header", "#article-header", ".note",
+      "details.popover", "button"
+    ]
+  },
+
+  "fields": {
+    "errors": {
+      "extract": "repeating_group",
+      "required": true,
+      "group_anchor": "p:has(span[id] + strong)",
+      "group_size": 3,
+      "item_fields": {
+        "name": {
+          "offset": 0,
+          "selector": "strong",
+          "extract": "text"
+        },
+        "code_decimal": {
+          "offset": 1,
+          "extract": "text",
+          "regex": "^(\\d+)"
+        },
+        "code_hex": {
+          "offset": 1,
+          "extract": "text",
+          "regex": "\\((.+?)\\)"
+        },
+        "description": {
+          "offset": 2,
+          "extract": "text"
+        }
+      }
+    }
+  },
+
+  "metadata": {
+    "url": {
+      "source": "input_url"
+    },
+    "page_range": {
+      "source": "url_capture",
+      "capture": "range"
+    }
+  },
+
+  "prose_rules": {
+    "paragraph_selector": "p",
+    "join": "\n",
+    "trim": true
+  }
+}

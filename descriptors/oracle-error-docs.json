@@ -1,0 +1,108 @@
+{
+  "name": "oracle-error-docs",
+  "version": "1.0.0",
+  "description": "Oracle Database error documentation pages (ORA prefix)",
+  "url_pattern": "https://docs.oracle.com/en/error-help/db/{prefix}-{code}/",
+  "base_url": "https://docs.oracle.com/en/error-help/db/",
+
+  "index": {
+    "url": "https://docs.oracle.com/en/error-help/db/ora-index.html",
+    "item_selector": "a[href^='ora-']",
+    "item_extract": {
+      "code": { "source": "text" },
+      "url": { "source": "attr", "attr": "href" }
+    }
+  },
+
+  "root": "main.err",
+
+  "section": {
+    "strategy": "css",
+    "selector": "div[style*='display: block']",
+    "fallback": "div:first-child"
+  },
+
+  "cleanup": {
+    "remove_selectors": ["script", "style", "nav", "header", "footer"]
+  },
+
+  "fields": {
+    "code": {
+      "selector": "h2",
+      "extract": "text",
+      "required": true
+    },
+    "message": {
+      "selector": "div.st",
+      "extract": "text",
+      "required": true
+    },
+    "parameters": {
+      "selector": "div.ca.v ul > li",
+      "extract": "list",
+      "required": false,
+      "item_fields": {
+        "name": {
+          "selector": "var",
+          "extract": "text"
+        },
+        "description": {
+          "extract": "text_after",
+          "after": "var",
+          "trim_prefix": ":"
+        }
+      }
+    },
+    "cause": {
+      "extract": "heading_section",
+      "heading": "Cause",
+      "heading_tag": "h3",
+      "content_selector": "div.ca",
+      "content_extract": "prose",
+      "required": true
+    },
+    "action": {
+      "extract": "heading_section",
+      "heading": "Action",
+      "heading_tag": "h3",
+      "content_selector": "div.ca",
+      "content_extract": "prose",
+      "required": true
+    },
+    "additionalInfo": {
+      "extract": "heading_section",
+      "heading": "Additional Information",
+      "heading_tag": "h3",
+      "content_selector": "div.t",
+      "content_extract": "prose",
+      "required": false
+    },
+    "sql": {
+      "extract": "heading_section",
+      "heading": "Additional Information",
+      "heading_tag": "h3",
+      "content_selector": "div.t",
+      "content_extract": "code_blocks",
+      "code_selector": "pre code",
+      "required": false
+    }
+  },
+
+  "metadata": {
+    "release": {
+      "source": "section_attr",
+      "attr": "id"
+    },
+    "url": {
+      "source": "input_url"
+    }
+  },
+
+  "prose_rules": {
+    "paragraph_selector": "p",
+    "list_selector": "ul > li, ol > li",
+    "list_prefix": "- ",
+    "join": "\n",
+    "trim": true
+  }
+}
