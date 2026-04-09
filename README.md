@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="Docs/Banner.jpg" alt="distill" width="100%" />
+  <img src="Docs/BN2.jpg" alt="distill logo" height="80" />
 </p>
 
-# distill
+<h1 align="center">distill</h1>
 
 A descriptor-driven web content extraction tool that turns documentation pages into structured, LLM-ready context. Extracts the signal from web pages — stripping navigation chrome, scripts, and boilerplate — and outputs clean data in TOON, Markdown, or JSON formats.
 
