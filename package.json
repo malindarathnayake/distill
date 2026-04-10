@@ -23,7 +23,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "AGPL-3.0-only",
   "dependencies": {
     "@toon-format/toon": "^2.1.0",
     "cheerio": "^1.2.0"
